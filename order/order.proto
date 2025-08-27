@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package order;
+option go_package="i-kun.vip/pb/order";
+
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+}
+
+service Order {
+  rpc Ping(Request) returns(Response);
+}
+
+message OrderCreateReq {
+  string orderNo = 1;
+  int64 cartId = 2;
+}
+message OrderCreateResp {
+  string OrderNo = 1;
+  string payNo = 2;
+}
+
+service OrderService {
+  rpc OrderCreate(OrderCreateReq) returns(OrderCreateResp);
+}

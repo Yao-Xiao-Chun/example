@@ -1,0 +1,16 @@
+Name: user.rpc
+ListenOn: 0.0.0.0:8070
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: user.rpc
+  User: root
+  Pass: root
+# 订单服务
+OrderRpcConf:
+  User: root
+  Pass: root
+  Etcd:
+    Key: order.rpc
+    Hosts:
+    - 127.0.0.1:2379

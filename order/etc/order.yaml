@@ -1,0 +1,14 @@
+Name: order.rpc
+ListenOn: 0.0.0.0:8071
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: order.rpc
+  User: root
+  Pass: root
+UserRpc:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: user.rpc
+  User: root
+  Pass: root
