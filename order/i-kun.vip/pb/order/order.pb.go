@@ -213,6 +213,95 @@ func (x *OrderCreateResp) GetPayNo() string {
 	return ""
 }
 
+// 订单回滚
+type OrderRollbackReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderNo       string                 `protobuf:"bytes,1,opt,name=orderNo,proto3" json:"orderNo,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderRollbackReq) Reset() {
+	*x = OrderRollbackReq{}
+	mi := &file_order_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderRollbackReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderRollbackReq) ProtoMessage() {}
+
+func (x *OrderRollbackReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderRollbackReq.ProtoReflect.Descriptor instead.
+func (*OrderRollbackReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *OrderRollbackReq) GetOrderNo() string {
+	if x != nil {
+		return x.OrderNo
+	}
+	return ""
+}
+
+type OrderRollbackResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderNo       string                 `protobuf:"bytes,1,opt,name=OrderNo,proto3" json:"OrderNo,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderRollbackResp) Reset() {
+	*x = OrderRollbackResp{}
+	mi := &file_order_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderRollbackResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderRollbackResp) ProtoMessage() {}
+
+func (x *OrderRollbackResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderRollbackResp.ProtoReflect.Descriptor instead.
+func (*OrderRollbackResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *OrderRollbackResp) GetOrderNo() string {
+	if x != nil {
+		return x.OrderNo
+	}
+	return ""
+}
+
 var File_order_proto protoreflect.FileDescriptor
 
 const file_order_proto_rawDesc = "" +
@@ -227,11 +316,16 @@ const file_order_proto_rawDesc = "" +
 	"\x06cartId\x18\x02 \x01(\x03R\x06cartId\"A\n" +
 	"\x0fOrderCreateResp\x12\x18\n" +
 	"\aOrderNo\x18\x01 \x01(\tR\aOrderNo\x12\x14\n" +
-	"\x05payNo\x18\x02 \x01(\tR\x05payNo20\n" +
+	"\x05payNo\x18\x02 \x01(\tR\x05payNo\",\n" +
+	"\x10OrderRollbackReq\x12\x18\n" +
+	"\aorderNo\x18\x01 \x01(\tR\aorderNo\"-\n" +
+	"\x11OrderRollbackResp\x12\x18\n" +
+	"\aOrderNo\x18\x01 \x01(\tR\aOrderNo20\n" +
 	"\x05Order\x12'\n" +
-	"\x04Ping\x12\x0e.order.Request\x1a\x0f.order.Response2L\n" +
+	"\x04Ping\x12\x0e.order.Request\x1a\x0f.order.Response2\x8e\x01\n" +
 	"\fOrderService\x12<\n" +
-	"\vOrderCreate\x12\x15.order.OrderCreateReq\x1a\x16.order.OrderCreateRespB\x14Z\x12i-kun.vip/pb/orderb\x06proto3"
+	"\vOrderCreate\x12\x15.order.OrderCreateReq\x1a\x16.order.OrderCreateResp\x12@\n" +
+	"\vOrderRevert\x12\x17.order.OrderRollbackReq\x1a\x18.order.OrderRollbackRespB\x14Z\x12i-kun.vip/pb/orderb\x06proto3"
 
 var (
 	file_order_proto_rawDescOnce sync.Once
@@ -245,20 +339,24 @@ func file_order_proto_rawDescGZIP() []byte {
 	return file_order_proto_rawDescData
 }
 
-var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_order_proto_goTypes = []any{
-	(*Request)(nil),         // 0: order.Request
-	(*Response)(nil),        // 1: order.Response
-	(*OrderCreateReq)(nil),  // 2: order.OrderCreateReq
-	(*OrderCreateResp)(nil), // 3: order.OrderCreateResp
+	(*Request)(nil),           // 0: order.Request
+	(*Response)(nil),          // 1: order.Response
+	(*OrderCreateReq)(nil),    // 2: order.OrderCreateReq
+	(*OrderCreateResp)(nil),   // 3: order.OrderCreateResp
+	(*OrderRollbackReq)(nil),  // 4: order.OrderRollbackReq
+	(*OrderRollbackResp)(nil), // 5: order.OrderRollbackResp
 }
 var file_order_proto_depIdxs = []int32{
 	0, // 0: order.Order.Ping:input_type -> order.Request
 	2, // 1: order.OrderService.OrderCreate:input_type -> order.OrderCreateReq
-	1, // 2: order.Order.Ping:output_type -> order.Response
-	3, // 3: order.OrderService.OrderCreate:output_type -> order.OrderCreateResp
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	4, // 2: order.OrderService.OrderRevert:input_type -> order.OrderRollbackReq
+	1, // 3: order.Order.Ping:output_type -> order.Response
+	3, // 4: order.OrderService.OrderCreate:output_type -> order.OrderCreateResp
+	5, // 5: order.OrderService.OrderRevert:output_type -> order.OrderRollbackResp
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -275,7 +373,7 @@ func file_order_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_proto_rawDesc), len(file_order_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   2,
 		},

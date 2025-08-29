@@ -14,13 +14,16 @@ import (
 )
 
 type (
-	OrderCreateReq  = order.OrderCreateReq
-	OrderCreateResp = order.OrderCreateResp
-	Request         = order.Request
-	Response        = order.Response
+	OrderCreateReq    = order.OrderCreateReq
+	OrderCreateResp   = order.OrderCreateResp
+	OrderRollbackReq  = order.OrderRollbackReq
+	OrderRollbackResp = order.OrderRollbackResp
+	Request           = order.Request
+	Response          = order.Response
 
 	OrderService interface {
 		OrderCreate(ctx context.Context, in *OrderCreateReq, opts ...grpc.CallOption) (*OrderCreateResp, error)
+		OrderRevert(ctx context.Context, in *OrderRollbackReq, opts ...grpc.CallOption) (*OrderRollbackResp, error)
 	}
 
 	defaultOrderService struct {
@@ -37,4 +40,9 @@ func NewOrderService(cli zrpc.Client) OrderService {
 func (m *defaultOrderService) OrderCreate(ctx context.Context, in *OrderCreateReq, opts ...grpc.CallOption) (*OrderCreateResp, error) {
 	client := order.NewOrderServiceClient(m.cli.Conn())
 	return client.OrderCreate(ctx, in, opts...)
+}
+
+func (m *defaultOrderService) OrderRevert(ctx context.Context, in *OrderRollbackReq, opts ...grpc.CallOption) (*OrderRollbackResp, error) {
+	client := order.NewOrderServiceClient(m.cli.Conn())
+	return client.OrderRevert(ctx, in, opts...)
 }

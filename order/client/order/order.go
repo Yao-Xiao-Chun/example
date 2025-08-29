@@ -14,10 +14,12 @@ import (
 )
 
 type (
-	OrderCreateReq  = order.OrderCreateReq
-	OrderCreateResp = order.OrderCreateResp
-	Request         = order.Request
-	Response        = order.Response
+	OrderCreateReq    = order.OrderCreateReq
+	OrderCreateResp   = order.OrderCreateResp
+	OrderRollbackReq  = order.OrderRollbackReq
+	OrderRollbackResp = order.OrderRollbackResp
+	Request           = order.Request
+	Response          = order.Response
 
 	Order interface {
 		Ping(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)

@@ -122,6 +122,7 @@ var Order_ServiceDesc = grpc.ServiceDesc{
 
 const (
 	OrderService_OrderCreate_FullMethodName = "/order.OrderService/OrderCreate"
+	OrderService_OrderRevert_FullMethodName = "/order.OrderService/OrderRevert"
 )
 
 // OrderServiceClient is the client API for OrderService service.
@@ -129,6 +130,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderServiceClient interface {
 	OrderCreate(ctx context.Context, in *OrderCreateReq, opts ...grpc.CallOption) (*OrderCreateResp, error)
+	OrderRevert(ctx context.Context, in *OrderRollbackReq, opts ...grpc.CallOption) (*OrderRollbackResp, error)
 }
 
 type orderServiceClient struct {
@@ -149,11 +151,22 @@ func (c *orderServiceClient) OrderCreate(ctx context.Context, in *OrderCreateReq
 	return out, nil
 }
 
+func (c *orderServiceClient) OrderRevert(ctx context.Context, in *OrderRollbackReq, opts ...grpc.CallOption) (*OrderRollbackResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OrderRollbackResp)
+	err := c.cc.Invoke(ctx, OrderService_OrderRevert_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrderServiceServer is the server API for OrderService service.
 // All implementations must embed UnimplementedOrderServiceServer
 // for forward compatibility.
 type OrderServiceServer interface {
 	OrderCreate(context.Context, *OrderCreateReq) (*OrderCreateResp, error)
+	OrderRevert(context.Context, *OrderRollbackReq) (*OrderRollbackResp, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
 
@@ -166,6 +179,9 @@ type UnimplementedOrderServiceServer struct{}
 
 func (UnimplementedOrderServiceServer) OrderCreate(context.Context, *OrderCreateReq) (*OrderCreateResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OrderCreate not implemented")
+}
+func (UnimplementedOrderServiceServer) OrderRevert(context.Context, *OrderRollbackReq) (*OrderRollbackResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OrderRevert not implemented")
 }
 func (UnimplementedOrderServiceServer) mustEmbedUnimplementedOrderServiceServer() {}
 func (UnimplementedOrderServiceServer) testEmbeddedByValue()                      {}
@@ -206,6 +222,24 @@ func _OrderService_OrderCreate_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrderService_OrderRevert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderRollbackReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).OrderRevert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_OrderRevert_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).OrderRevert(ctx, req.(*OrderRollbackReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrderService_ServiceDesc is the grpc.ServiceDesc for OrderService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -216,6 +250,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OrderCreate",
 			Handler:    _OrderService_OrderCreate_Handler,
+		},
+		{
+			MethodName: "OrderRevert",
+			Handler:    _OrderService_OrderRevert_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

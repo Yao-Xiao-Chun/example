@@ -27,3 +27,8 @@ func (s *OrderServiceServer) OrderCreate(ctx context.Context, in *order.OrderCre
 	l := orderservicelogic.NewOrderCreateLogic(ctx, s.svcCtx)
 	return l.OrderCreate(in)
 }
+
+func (s *OrderServiceServer) OrderRevert(ctx context.Context, in *order.OrderRollbackReq) (*order.OrderRollbackResp, error) {
+	l := orderservicelogic.NewOrderRevertLogic(ctx, s.svcCtx)
+	return l.OrderRevert(in)
+}

@@ -1,11 +1,10 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 
-	"example/user/github.com/example/user"
+	"example/user/i-kun.vip/pb/user"
 	"example/user/internal/config"
 	userclassserviceServer "example/user/internal/server/userclassservice"
 	userroleserviceServer "example/user/internal/server/userroleservice"

@@ -24,6 +24,15 @@ message OrderCreateResp {
   string payNo = 2;
 }
 
+//订单回滚
+message OrderRollbackReq {
+  string orderNo = 1;
+}
+message OrderRollbackResp {
+  string OrderNo = 1;
+}
+
 service OrderService {
   rpc OrderCreate(OrderCreateReq) returns(OrderCreateResp);
+  rpc OrderRevert(OrderRollbackReq) returns(OrderRollbackResp);
 }
