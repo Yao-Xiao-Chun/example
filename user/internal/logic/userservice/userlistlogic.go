@@ -3,7 +3,8 @@ package userservicelogic
 import (
 	"context"
 
-	"example/user/github.com/example/user"
+	"example/user/i-kun.vip/pb/user"
+
 	"example/user/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/logx"

@@ -7,7 +7,7 @@ package server
 import (
 	"context"
 
-	"example/user/github.com/example/user"
+	"example/user/i-kun.vip/pb/user"
 	"example/user/internal/logic/userservice"
 	"example/user/internal/svc"
 )
