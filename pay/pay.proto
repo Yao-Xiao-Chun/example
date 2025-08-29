@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package pay;
+option go_package="./i-kun.vip/pb/pay";
+
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+}
+
+service Pay {
+  rpc Ping(Request) returns(Response);
+}
+// 创建支付记录
+message OrderPayReq {
+  string order_id = 1;
+  string order_no = 2;
+  string pay_name = 3;
+  int64 pay_type=4;
+}
+message OrderPayResp {
+  string pay_no = 1;
+  string pay_url = 2;
+  string pay_id =3;
+  string pay_time = 4;
+  float pay_price = 5;
+  //总价
+  float total_price = 6;
+}
+
+service OrderPay {
+  rpc OrderPay(OrderPayReq) returns(OrderPayResp);
+}
